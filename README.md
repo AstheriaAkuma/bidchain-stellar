@@ -39,8 +39,9 @@ Every day, affordable foreclosed properties sit unsold while regular Filipinos w
 
 ---
 
-##Contract Address
+## Contract Address
 CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
+![alt text](image.png)
 
 ## Suggested Timeline for MVP Delivery
 
@@ -293,5 +294,3 @@ bidchain/
 ```
 
 ---
-
-![alt text](image.png)
