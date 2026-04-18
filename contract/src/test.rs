@@ -1,3 +1,7 @@
+use crate::BidChainContractClient;
+use crate::BidChainContract;
+use crate::AuctionStatus;
+
 #[cfg(test)]
 mod tests {
     use super::*;
