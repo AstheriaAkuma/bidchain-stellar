@@ -1,6 +1,6 @@
 # BidChain
 
-> Trustless on-chain bidding for foreclosed properties in the Philippines — bid deposits held in Soroban escrow, winner selected by smart contract, losers refunded in seconds.
+> **Ending the Liquidity Trap:** Trustless on-chain bidding for foreclosed properties in the Philippines. Bid deposits held in Soroban escrow, winners selected by code, and losers refunded in seconds—not weeks.
 
 ---
 
@@ -9,15 +9,27 @@
 
 ---
 
-## Problem
+## The Problem: The "Freezer" Effect
 
-A minimum-wage earner in Quezon City wants to bid on a PAG-IBIG foreclosed condo unit listed at ₱800,000, but cannot participate because registration requires a physical manager's check as deposit, his money gets frozen for 2–4 weeks if he loses, and there is no way to verify whether the auction result was manipulated — so he gives up before he even starts.
+A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at ₱800,000—a rare path to homeownership he can actually afford.
+
+But the current system is designed to fail him:
+
+- The Check Barrier: Registration requires a physical manager's check. This means bank fees, physical travel, and delays that most working Filipinos cannot manage.
+- The Liquidity Trap: If he loses the bid, his deposit is frozen for 2 to 4 weeks. He cannot use that money for his family, nor can he bid on a different property.
+- The Trust Gap: Auctions happen behind closed doors. There is no public ledger to prove the result wasn't manipulated by a human committee.
+
+The result? The bidder gives up, and the property sits empty.
 
 ---
 
 ## Solution
 
-BidChain lets any Filipino bidder lock their bid deposit directly into a Soroban smart contract via Freighter wallet, automatically selects the highest bid when the auction closes, instantly refunds all losing bidders in seconds, and issues an on-chain right-to-purchase token to the winner — making Stellar essential because sub-cent fees make even small deposits viable to protect, 5-second finality returns money to losers instantly instead of weeks, and the immutable ledger makes every bid publicly verifiable so no human can manipulate the result.
+BidChain replaces the four "broken" parts of the auction process with Stellar-native primitives:
+- Trustless Escrow: Bidders lock deposits directly into a Soroban Smart Contract via Freighter wallet. No manager's checks, no bank visits.
+- On-Chain Verification: Every bid is an immutable transaction on the Stellar ledger. Anyone can verify the auction history, ensuring 100% transparency.
+- Instant Finality: Leveraging Stellar’s 5-second ledger close, losing bidders are refunded instantly the moment the auction ends. Their capital is never "trapped."
+- Right-to-Purchase Token: The winner receives a minted asset—a digital certificate of the win—to bridge the on-chain result with the real-world legal transfer at PAG-IBIG.
 
 ---
 
@@ -26,6 +38,9 @@ BidChain lets any Filipino bidder lock their bid deposit directly into a Soroban
 Every day, affordable foreclosed properties sit unsold while regular Filipinos who could afford them are locked out by a broken process. BidChain does not replace PAG-IBIG or the legal property transfer process. It replaces the four broken parts: the deposit, the bidding, the winner selection, and the refund. Everything else stays the same. The goal is to make foreclosed property auctions as open, fair, and accessible as buying something on Shopee.
 
 ---
+
+##Contract Address
+CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
 
 ## Suggested Timeline for MVP Delivery
 
@@ -279,6 +294,4 @@ bidchain/
 
 ---
 
-## License
-
-MIT
+![alt text](image.png)
