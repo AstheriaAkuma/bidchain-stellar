@@ -4,11 +4,6 @@
 
 ---
 
-## Project Name
-**BidChain**
-
----
-
 ## The Problem: The "Freezer" Effect
 
 A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at ₱800,000—a rare path to homeownership he can actually afford.
