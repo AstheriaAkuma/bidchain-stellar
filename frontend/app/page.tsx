@@ -41,8 +41,16 @@ export default function Home() {
         🟢 Active Auctions
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {open.map((property) => (
-          <PropertyCard key={property.id} property={property} />
+       {open.map((property) => (
+          <div key={property.id} className="flex flex-col gap-2">
+            <PropertyCard property={property} />
+            <Link
+              href={`/auction/${property.id}/result`}
+              className="text-center text-xs text-gray-500 hover:text-blue-400 border border-gray-800 rounded-lg py-1.5 transition"
+            >
+              View Mock Result &rarr;
+            </Link>
+          </div>
         ))}
       </div>
 
@@ -52,16 +60,20 @@ export default function Home() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-50">
         {closed.map((property) => (
-          <PropertyCard key={property.id} property={property} />
+          <PropertyCard
+            key={property.id}
+            property={property}
+            href={`/auction/${property.id}/result`}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function PropertyCard({ property }: { property: (typeof properties)[0] }) {
+function PropertyCard({ property, href }: { property: (typeof properties)[0]; href?: string }) {
   return (
-    <Link href={`/property/${property.id}`}>
+    <Link href={href ?? `/property/${property.id}`}> 
       <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-blue-500 transition group">
         <img
           src={property.image}
