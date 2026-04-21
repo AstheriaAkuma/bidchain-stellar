@@ -4,17 +4,17 @@
 
 ---
 
-## The Problem: The "Freezer" Effect
+## The Problem: Foreclosure Auctions Are Hard to Access
 
-A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at ₱800,000—a rare path to homeownership he can actually afford.
+A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at ₱800,000—an opportunity for affordable homeownership.
 
 But the current system is designed to fail him:
 
 - The Check Barrier: Registration requires a physical manager's check. This means bank fees, physical travel, and delays that most working Filipinos cannot manage.
-- The Liquidity Trap: If he loses the bid, his deposit is frozen for 2 to 4 weeks. He cannot use that money for his family, nor can he bid on a different property.
-- The Trust Gap: Auctions happen behind closed doors. There is no public ledger to prove the result wasn't manipulated by a human committee.
+- The Liquidity Trap: If the bidder loses, their deposit is held for 2 to 4 weeks before being refunded. This prevents them from using the funds for other urgent needs or new opportunities.
+- The Trust Gap: Auctions are conducted manually, with limited public visibility. There is no real-time, verifiable record of bids or outcomes.
 
-The result? The bidder gives up, and the property sits empty.
+As a result, many potential buyers opt out of the process, and properties remain unclaimed or underutilized.
 
 ---
 
@@ -30,7 +30,15 @@ BidChain replaces the four "broken" parts of the auction process with Stellar-na
 
 ## Vision and Purpose
 
-Every day, affordable foreclosed properties sit unsold while regular Filipinos who could afford them are locked out by a broken process. BidChain does not replace PAG-IBIG or the legal property transfer process. It replaces the four broken parts: the deposit, the bidding, the winner selection, and the refund. Everything else stays the same. The goal is to make foreclosed property auctions as open, fair, and accessible as buying something on Shopee.
+BidChain does not replace existing legal or banking systems for property transfer. Instead, it improves the auction layer.
+
+It replaces four inefficient components of the current process:
+1. deposit handling
+2. bidding
+3. winner selection
+4. refund distribution.
+
+The goal is to make foreclosure auctions more transparent, efficient, and accessible, similar to modern digital marketplaces.
 
 ---
 
