@@ -1,9 +1,17 @@
 "use client";
 import Link from "next/link";
 import { useFreighter } from "@/hooks/useFreighter";
+import { getWalletBalance } from "@/lib/stellar";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const { publicKey, shortKey, connect, isLoading } = useFreighter();
+  const [balance, setBalance] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!publicKey) return;
+    getWalletBalance(publicKey).then(setBalance);
+  }, [publicKey]);
 
   return (
     <nav className="border-b border-gray-800 bg-gray-950 px-6 py-4 flex items-center justify-between">
@@ -28,6 +36,11 @@ export default function Navbar() {
           <div className="flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-lg text-sm">
             <span className="w-2 h-2 bg-green-400 rounded-full" />
             <span className="text-gray-300 font-mono">{shortKey}</span>
+            {balance && (
+              <span className="text-yellow-400 text-xs border-l border-gray-700 pl-2">
+                {balance} XLM
+              </span>
+            )}
           </div>
         ) : (
           <button
