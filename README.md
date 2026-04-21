@@ -1,91 +1,151 @@
-# BidChain
+# BidWell PH — ROPA Auction Portal
 
-> **Ending the Liquidity Trap:** Trustless on-chain bidding for foreclosed properties in the Philippines. Bid deposits held in Soroban escrow, winners selected by code, and losers refunded in seconds—not weeks.
+> **Transparent, on-chain property auctions for bank-foreclosed assets in the Philippines.**
+> Bid deposits are held in a Soroban smart contract on Stellar. Winners are selected by code. Losers are refunded in seconds — not weeks.
 
----
-
-## The Problem: Foreclosure Auctions Are Hard to Access
-
-A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at ₱800,000—an opportunity for affordable homeownership.
-
-But the current system is designed to fail him:
-
-- The Check Barrier: Registration requires a physical manager's check. This means bank fees, physical travel, and delays that most working Filipinos cannot manage.
-- The Liquidity Trap: If the bidder loses, their deposit is held for 2 to 4 weeks before being refunded. This prevents them from using the funds for other urgent needs or new opportunities.
-- The Trust Gap: Auctions are conducted manually, with limited public visibility. There is no real-time, verifiable record of bids or outcomes.
-
-As a result, many potential buyers opt out of the process, and properties remain unclaimed or underutilized.
+**Live Demo:** _[Add Vercel / Netlify link here]_
+**Contract on Stellar Expert:** [CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U](https://stellar.expert/explorer/testnet/contract/CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U)
 
 ---
 
-## Solution
+## The Problem
 
-BidChain replaces the four "broken" parts of the auction process with Stellar-native primitives:
-- Trustless Escrow: Bidders lock deposits directly into a Soroban Smart Contract via Freighter wallet. No manager's checks, no bank visits.
-- On-Chain Verification: Every bid is an immutable transaction on the Stellar ledger. Anyone can verify the auction history, ensuring 100% transparency.
-- Instant Finality: Leveraging Stellar’s 5-second ledger close, losing bidders are refunded instantly the moment the auction ends. Their capital is never "trapped."
-- Right-to-Purchase Token: The winner receives a minted asset—a digital certificate of the win—to bridge the on-chain result with the real-world legal transfer at PAG-IBIG.
+Every year, thousands of Filipinos miss out on affordable foreclosed properties — not because they can't afford them, but because the auction system is broken.
 
----
+**The three barriers today:**
 
-## Vision and Purpose
-
-BidChain does not replace existing legal or banking systems for property transfer. Instead, it improves the auction layer.
-
-It replaces four inefficient components of the current process:
-1. deposit handling
-2. bidding
-3. winner selection
-4. refund distribution.
-
-The goal is to make foreclosure auctions more transparent, efficient, and accessible, similar to modern digital marketplaces.
-
----
-
-## Contract Address
-CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
-![alt text](image.png)
-
-## Suggested Timeline for MVP Delivery
-
-| Day | Milestone |
+| Barrier | Reality |
 |---|---|
-| Day 1 | Soroban contract written, compiled, 3 tests passing |
-| Day 2 | Contract deployed to Stellar testnet |
-| Day 3 | Frontend scaffolded — auction listing page, bid form |
-| Day 4 | Freighter wallet integration, fund_bid wired to contract |
-| Day 5 | Finalize auction UI, refund flow, purchase token display |
-| Day 6 | Full demo flow tested end-to-end, README finalized |
-| Day 7 | Screenshots added, Rise In submission submitted |
+| **The Check Barrier** | You must submit a physical manager's check just to register. Bank trips, fees, and delays that most working Filipinos can't manage. |
+| **The Liquidity Trap** | If you lose, your deposit is frozen for 2–4 weeks. That's money you can't use for rent, other bids, or emergencies. |
+| **The Trust Gap** | Auctions happen behind closed doors. No public record. No way to verify the winner was chosen fairly. |
 
 ---
 
-## Stellar Features Used
+## The Solution
 
-| Feature | Usage |
+BidWell PH moves the entire auction process on-chain using the Stellar blockchain.
+
+- **No manager's check** — connect a Freighter wallet, lock your deposit directly into a Soroban smart contract
+- **Instant refunds** — losing bidders get their deposit back automatically once a winner is declared
+- **Public ledger** — every bid and result is permanently recorded on Stellar; anyone can verify
+- **Right-to-Purchase Token** — the winner receives a digital certificate on-chain, bridging the result with the real-world PAG-IBIG transfer process
+
+---
+
+## What's Working Right Now
+
+This is a fully functional MVP. Everything listed below is live and demonstrable:
+
+| Feature | Status |
 |---|---|
-| Soroban smart contracts | Bid deposit escrow, winner selection, refund logic, purchase token issuance |
-| XLM / USDC transfers | Token-based deposit lock and instant refund settlement |
-| Custom tokens | Right-to-purchase token issued to the winning bidder on auction close |
-| Trustlines | Winner must hold a trustline for the purchase token before it can be received |
-| On-chain events | Frontend tracking of bid, winner, refund, and cancel state changes |
+| Browse active & closed property listings | ✅ Working |
+| Search and filter properties | ✅ Working |
+| Connect Freighter wallet | ✅ Working |
+| Place a bid (locks deposit on Stellar testnet) | ✅ Working |
+| Transaction receipt after bid confirmation | ✅ Working |
+| View auction result (pulled from Soroban contract) | ✅ Working |
+| My Bids dashboard (bid history from blockchain) | ✅ Working |
+| Claim deposit refund | ✅ Working |
+| Admin panel — finalize auction & declare winner | ✅ Working |
+
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────┐
+│           Browser (BidWell PH)          │
+│   Next.js 15  ·  Tailwind CSS  ·  TypeScript  │
+└───────────────────┬─────────────────────┘
+                    │
+         Freighter Wallet Extension
+         (signs transactions locally)
+                    │
+┌───────────────────▼─────────────────────┐
+│          Stellar Testnet                │
+│   Horizon API  ·  Soroban RPC           │
+└───────────────────┬─────────────────────┘
+                    │
+┌───────────────────▼─────────────────────┐
+│       Soroban Smart Contract            │
+│  Bid escrow · Winner selection          │
+│  Refund logic · Purchase token          │
+└─────────────────────────────────────────┘
+```
+
+**Frontend** — Next.js 15 app with Tailwind CSS. All blockchain reads use Soroban's `simulateTransaction` for view calls. Writes go through Freighter wallet signing.
+
+**Smart Contract** — Written in Rust, deployed to Stellar Testnet. Handles the full auction lifecycle: creating auctions, locking deposits, declaring winners, issuing purchase tokens, and releasing refunds.
+
+**Wallet** — Freighter browser extension. The user signs every transaction locally; private keys never leave the browser.
+
+---
+
+## How to Use the App
+
+### 1. Install Freighter
+Download the [Freighter browser extension](https://www.freighter.app/) and switch it to **Testnet** mode. Fund your account using [Stellar Friendbot](https://friendbot.stellar.org).
+
+### 2. Browse Listings
+Visit the homepage to see all active and closed property auctions. Search by property name, reference number, or bank. Click any card to see full details.
+
+### 3. Place a Bid
+1. Open a property listing
+2. Enter your bid amount (must meet the minimum)
+3. Click **"Place Bid & Lock Deposit"**
+4. Freighter will prompt you to sign — no funds leave your wallet until you confirm
+5. A transaction receipt appears on-screen with your bid details and a link to verify on Stellar Expert
+
+### 4. View Results
+Click **"View Auction Result"** on any closed auction to see the on-chain result — winner address, winning bid, and total bidder count. All data is pulled directly from the Soroban contract.
+
+### 5. Claim a Refund
+If you didn't win, go to **My Bids**. If the auction is finalized and your deposit is eligible, a **"Claim Refund"** button will appear. Freighter signs the refund transaction and your deposit is returned.
+
+---
+
+## UI Walkthrough
+
+### Homepage — Active Auctions
+The main listings page shows all open property auctions with live search/filter. Each card displays the bank, property type, location, minimum bid, and required deposit.
+![Homepage - Active Auctions](.\frontend\public\homepage.png)
+
+### Property Detail — Bid Panel
+Clicking a property opens the full detail view: property specs, auction deadline countdown, escrow explanation, and a sticky bid panel on the right.
+![Property Detail — Bid Panel](.\frontend\public\propertydetail.png)
+
+### Freighter Signature Prompt
+When a user clicks "Place Bid", Freighter opens a native signing modal. The user reviews the transaction and approves. Nothing is submitted without explicit confirmation.
+![Freighter Signature Prompt](.\frontend\public\homepage.png)
+
+### Transaction Receipt
+After a successful bid, the page shows a full transaction receipt styled as a certificate — property name, bid amount, deposit locked, ledger status (Confirmed), and the on-chain transaction ID.
+![Transaction Receipt](.\frontend\public\receipt.png)
+![Stellar Expert](.\frontend\public\stellarexpert.png)
+
+### Closed Auctions — Auction Result Page
+Closed auction pages show the on-chain result after finalization: winner address (linked to Stellar Expert), winning bid amount, and total participants. The reveal is gated by a button for a clean UX.
+![Closed Auctions — Auction Result Page](.\frontend\public\result.png)
+
+### My Bids Dashboard
+Shows the user's complete bid history pulled from the Stellar testnet. Displays auction status (active / won / lost), on-chain verification links, and a refund button where applicable.
+![My Bids Dashboard](.\frontend\public\bid.png)
 
 ---
 
 ## Contract Functions
 
-| Function | Caller | Description |
+| Function | Who Calls It | What It Does |
 |---|---|---|
-| `initialize(admin)` | Deployer | Sets admin address, resets auction counter |
-| `create_auction(admin, property_ref, min_bid, deposit, token, deadline)` | Admin | Lists a foreclosed property for auction |
-| `place_bid(bidder, auction_id, bid_amount)` | Bidder | Locks deposit and records bid on-chain |
-| `finalize_auction(admin, auction_id, winner, purchase_token_hash)` | Admin | Declares winner, issues purchase token |
-| `refund_deposit(bidder, auction_id)` | Losing bidder | Claims deposit refund after finalization |
+| `initialize(admin)` | Deployer | Sets the admin address |
+| `create_auction(...)` | Admin | Lists a foreclosed property for auction |
+| `place_bid(bidder, auction_id, bid_amount)` | Bidder | Locks deposit and records bid |
+| `finalize_auction(admin, auction_id, winner, ...)` | Admin | Declares winner, issues purchase token |
+| `refund_deposit(bidder, auction_id)` | Losing bidder | Claims deposit refund |
 | `cancel_auction(admin, auction_id)` | Admin | Cancels auction, enables all refunds |
 | `get_auction(auction_id)` | Anyone | Read-only auction state |
-| `get_bid(auction_id, bidder)` | Anyone | Read-only bid state |
-| `get_auction_count()` | Anyone | Total auctions created |
-| `get_purchase_token(auction_id)` | Anyone | Right-to-purchase token hash for winner |
+| `get_bid(auction_id, bidder)` | Anyone | Read-only bid details |
 
 ---
 
@@ -93,187 +153,11 @@ CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
 
 ```
 Open
-  → Finalized  (admin calls finalize_auction — winner declared, purchase token issued)
-  → Cancelled  (admin calls cancel_auction — all deposits become refundable)
+ └─→ Finalized   (admin declares winner, purchase token issued)
+ └─→ Cancelled   (admin cancels, all deposits become refundable)
 
 After Finalized or Cancelled:
-  → Each losing bidder calls refund_deposit to claim instantly
-```
-
----
-
-## Why BidChain Wins
-
-BidChain targets a problem every Filipino judge either knows personally or has a family member who does — the broken PAG-IBIG foreclosed property auction process that favors connected buyers and freezes regular people's money for weeks. Stellar's sub-cent fees and 5-second finality make trustless deposit escrow viable even for small bids, a use case that no existing bank, GCash, or government portal can replicate. The right-to-purchase token bridges on-chain trust with the real-world legal property transfer, making this a practical, production-relevant project — not just a hackathon demo.
-
----
-
-## Optional Edge — AI Integration
-
-Integrate Gemini to analyze PAG-IBIG property listing documents uploaded by the admin and auto-extract key details — property reference, location, assessed value, minimum bid, encumbrances — and pre-fill the auction creation form. This reduces admin error, speeds up listing, and adds an AI layer that makes the product more compelling to non-technical government staff who would actually use it.
-
----
-
-## Constraints
-
-| Dimension | Selection |
-|---|---|
-| Region | SEA — Philippines (Metro Manila, Cebu, Davao) |
-| User Type | Aspiring homeowners, OFWs bidding remotely |
-| Complexity | Soroban required, Web app |
-| Theme | Escrow for contracts + Transparent fund distribution |
-
----
-
-## Prerequisites
-
-- Rust (latest stable): https://rustup.rs
-- WASM target: `rustup target add wasm32-unknown-unknown`
-- Stellar CLI v22+: `cargo install --locked stellar-cli`
-- Freighter browser extension (set to Testnet)
-- Funded testnet account via Friendbot: https://friendbot.stellar.org
-
----
-
-## Build
-
-```bash
-stellar contract build
-```
-
-Compiled WASM output:
-```
-target/wasm32-unknown-unknown/release/bidchain.wasm
-```
-
----
-
-## Test
-
-```bash
-cargo test
-```
-
-Expected output:
-```
-running 3 tests
-test tests::test_happy_path_full_auction_flow ... ok
-test tests::test_duplicate_bid_rejected ... ok
-test tests::test_state_after_finalized_auction ... ok
-
-test result: ok. 3 passed; 0 failed
-```
-
----
-
-## Deploy to Testnet
-
-```bash
-# 1. Generate and fund a deployer key
-stellar keys generate --global deployer --network testnet
-stellar keys fund deployer --network testnet
-
-# 2. Deploy the contract
-stellar contract deploy \
-  --wasm target/wasm32-unknown-unknown/release/bidchain.wasm \
-  --source deployer \
-  --network testnet
-```
-
-Copy the contract ID from the output (starts with `C...`).
-
----
-
-## Initialize the Contract
-
-```bash
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --source deployer \
-  --network testnet \
-  -- initialize \
-  --admin <ADMIN_ADDRESS>
-```
-
----
-
-## Sample CLI Invocations
-
-### Create an auction (admin)
-```bash
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --source admin \
-  --network testnet \
-  -- create_auction \
-  --admin <ADMIN_ADDRESS> \
-  --property_ref "PAGIBIG-QC-2024-001" \
-  --min_bid 800000 \
-  --deposit_amount 50000 \
-  --token <TOKEN_CONTRACT_ID> \
-  --deadline 1000
-```
-
-### Place a bid (bidder)
-```bash
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --source bidder \
-  --network testnet \
-  -- place_bid \
-  --bidder <BIDDER_ADDRESS> \
-  --auction_id 1 \
-  --bid_amount 850000
-```
-
-### Finalize auction (admin)
-```bash
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --source admin \
-  --network testnet \
-  -- finalize_auction \
-  --admin <ADMIN_ADDRESS> \
-  --auction_id 1 \
-  --winner <WINNER_ADDRESS> \
-  --purchase_token_hash 0101010101010101010101010101010101010101010101010101010101010101
-```
-
-### Claim refund (losing bidder)
-```bash
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --source loser \
-  --network testnet \
-  -- refund_deposit \
-  --bidder <BIDDER_ADDRESS> \
-  --auction_id 1
-```
-
-### Read auction state
-```bash
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --network testnet \
-  -- get_auction \
-  --auction_id 1
-```
-
-### Get purchase token (winner)
-```bash
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --network testnet \
-  -- get_purchase_token \
-  --auction_id 1
-```
-
----
-
-## Verify on Stellar Expert
-
-```
-https://stellar.expert/explorer/testnet/contract/<CONTRACT_ID>
+ └─→ Each losing bidder calls refund_deposit → instant return
 ```
 
 ---
@@ -281,19 +165,46 @@ https://stellar.expert/explorer/testnet/contract/<CONTRACT_ID>
 ## Repo Structure
 
 ```
-bidchain/
+bidchain-stellar/
 ├── contract/
-│   ├── src/
-│   │   ├── lib.rs      ← Soroban smart contract
-│   │   └── test.rs     ← 3 contract tests
-│   └── Cargo.toml
-├── frontend/
 │   └── src/
-│       ├── pages/
-│       └── components/
-├── assets/
-│   └── (screenshots)
+│       ├── lib.rs          ← Soroban smart contract (Rust)
+│       └── test.rs         ← 3 passing contract tests
+├── frontend/
+│   ├── app/
+│   │   ├── page.tsx        ← Homepage — property listings
+│   │   ├── property/[id]/  ← Property detail + bid form
+│   │   ├── auction/[id]/   ← Auction result page
+│   │   ├── dashboard/      ← My Bids + refund flow
+│   │   └── admin/          ← Admin panel — finalize auctions
+│   ├── components/
+│   │   └── Navbar.tsx
+│   ├── hooks/
+│   │   └── useFreighter.ts ← Wallet connection hook
+│   └── lib/
+│       ├── stellar.ts      ← Blockchain interaction layer
+│       └── mockData.ts     ← Property listings data
 └── README.md
 ```
 
 ---
+
+## Running Locally
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) — Freighter must be installed and set to **Testnet**.
+
+---
+
+## Future Improvements
+
+- Real property data integration with PAG-IBIG public registry API
+- AI-assisted listing creation (auto-extract property details from uploaded documents)
+- Mobile-responsive Freighter deep-link for in-app signing
+- USDC deposit support alongside XLM
+- Notification system for outbid and auction close events
