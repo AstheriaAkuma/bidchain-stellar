@@ -6,7 +6,9 @@ import {
   submitSorobanTx,
   stellarExpertUrl,
   getAuction,
+  getUserBid,
   AuctionData,
+  BidData,
 } from "@/lib/stellar";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
@@ -59,6 +61,7 @@ export default function PropertyPage() {
 
   // undefined = still loading, null = not found on-chain
   const [auction, setAuction] = useState<AuctionData | null | undefined>(undefined);
+  const [userBid, setUserBid] = useState<BidData | null>(null);
   const [bidAmount, setBidAmount] = useState("");
   const [status, setStatus] = useState<
     "idle" | "building" | "signing" | "submitting" | "success" | "error"
@@ -72,6 +75,11 @@ export default function PropertyPage() {
       .then((a) => setAuction(a))
       .catch(() => setAuction(null));
   }, [property?.id]);
+
+  useEffect(() => {
+    if (!publicKey || !auction) return;
+    getUserBid(property!.id, publicKey).then(setUserBid);
+  }, [publicKey, auction]);
 
   if (!property)
     return (
@@ -394,6 +402,48 @@ export default function PropertyPage() {
                   </p>
                 </div>
 
+                {userBid ? (
+                  <div className="space-y-4">
+                    <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center">
+                      <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-emerald-600">
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                      </div>
+                      <p className="font-semibold text-emerald-700 text-sm mb-0.5">Bid Submitted</p>
+                      <p className="text-emerald-600 text-xs">Your sealed bid is locked on-chain</p>
+                    </div>
+
+                    <div className="bg-slate-50 rounded-xl p-4 space-y-2.5 text-sm border border-slate-100">
+                      <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                        <span className="text-slate-500">Your bid</span>
+                        <span className="font-semibold text-[#0A3D62]">{stroopsToXLM(userBid.amount)} XLM</span>
+                      </div>
+                      <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                        <span className="text-slate-500">Deposit locked</span>
+                        <span className="font-semibold text-[#C4A484]">{stroopsToXLM(userBid.deposit)} XLM</span>
+                      </div>
+                      <div className="flex justify-between items-center py-1">
+                        <span className="text-slate-500">Status</span>
+                        <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold">
+                          Sealed ● Pending
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-400 text-center leading-relaxed">
+                      One bid per wallet is allowed. Results will be announced once the auction closes.
+                    </p>
+
+                    <Link
+                      href="/dashboard"
+                      className="block w-full text-center border border-slate-200 text-slate-600 text-sm py-2.5 rounded-xl hover:border-[#0A3D62] hover:text-[#0A3D62] transition font-medium"
+                    >
+                      View in My Bids →
+                    </Link>
+                  </div>
+                ) : (
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">
@@ -459,6 +509,7 @@ export default function PropertyPage() {
                     Freighter will prompt you to sign. Only the deposit leaves your wallet now.
                   </p>
                 </div>
+                )}
               </>
             )}
           </div>
