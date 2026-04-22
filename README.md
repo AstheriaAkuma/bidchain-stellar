@@ -106,7 +106,7 @@ Stellar Testnet (Horizon API + Soroban RPC)
 | View auction result pulled from Soroban contract | ✅ Working |
 | My Bids dashboard (transaction history from Stellar) | ✅ Working |
 | Admin panel — finalize auction & declare winner | ✅ Working |
-| In-app deposit refund for losing bidders | 🔜 Future work |
+| In-app deposit refund for losing bidders | ✅ Working|
 
 > **Note on refunds:** Deposits placed through the UI are locked as Stellar claimable balances. After 24 hours, losing bidders can reclaim their deposit directly on Stellar. Full in-app refund flow is planned as a next step (requires routing bids through the Soroban `place_bid` function).
 
