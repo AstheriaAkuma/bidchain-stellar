@@ -124,36 +124,13 @@ export { CONTRACT_ID, NETWORK_PASSPHRASE };
 export async function buildPlaceBidTx(
   bidderAddress: string,
   auctionId: number,
-  _bidAmount: number
+  bidAmount: number
 ): Promise<string> {
-  const account = await horizonServer.loadAccount(bidderAddress);
-
-  const transaction = new StellarSdk.TransactionBuilder(account, {
-    fee: StellarSdk.BASE_FEE,
-    networkPassphrase: NETWORK_PASSPHRASE,
-  })
-    .addOperation(
-      StellarSdk.Operation.createClaimableBalance({
-        asset: StellarSdk.Asset.native(),
-        amount: "1", // 1 XLM = demo deposit stand-in
-        claimants: [
-          // Platform can always claim (winner path)
-          new StellarSdk.Claimant(ESCROW_KEY),
-          // Bidder can reclaim after 1 day (loser refund path)
-          new StellarSdk.Claimant(
-            bidderAddress,
-            StellarSdk.Claimant.predicateNot(
-              StellarSdk.Claimant.predicateBeforeRelativeTime("86400")
-            )
-          ),
-        ],
-      })
-    )
-    .addMemo(StellarSdk.Memo.text(`BidChain:auction:${auctionId}`))
-    .setTimeout(30)
-    .build();
-
-  return transaction.toXDR();
+  return buildSorobanTx(bidderAddress, "place_bid", [
+    new StellarSdk.Address(bidderAddress).toScVal(),
+    StellarSdk.nativeToScVal(BigInt(auctionId), { type: "u64" }),
+    StellarSdk.nativeToScVal(BigInt(bidAmount), { type: "i128" }),
+  ]);
 }
 
 export async function submitSignedTx(signedXDR: string) {

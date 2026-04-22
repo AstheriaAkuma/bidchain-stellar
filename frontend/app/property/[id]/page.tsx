@@ -1,7 +1,7 @@
 "use client";
 import { properties, formatPHP } from "@/lib/mockData";
 import { useFreighter } from "@/hooks/useFreighter";
-import { buildPlaceBidTx, submitSignedTx, stellarExpertUrl } from "@/lib/stellar";
+import { buildPlaceBidTx, submitSorobanTx, stellarExpertUrl } from "@/lib/stellar";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
@@ -42,9 +42,8 @@ export default function PropertyPage() {
       setStatus("signing");
       const signedXDR = await sign(xdr);
       setStatus("submitting");
-      const result = await submitSignedTx(signedXDR);
-      if (result.status === "ERROR") throw new Error("Transaction failed on-chain");
-      setTxHash(result.hash);
+      const hash = await submitSorobanTx(signedXDR);
+      setTxHash(hash);
       setStatus("success");
     } catch (e: unknown) {
       setErrorMsg(e instanceof Error ? e.message : "Something went wrong");

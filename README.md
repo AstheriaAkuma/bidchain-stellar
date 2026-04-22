@@ -19,8 +19,9 @@ But the current system is designed to fail him:
 BidChain PH moves the auction process on-chain using the Stellar blockchain.
 
 - **Wallet-based bidding** via Freighter — no manager's check, no bank visit
-- **Deposit locked on Stellar** — funds are held in a verifiable claimable balance on the Stellar ledger
+- **Deposit locked in Soroban escrow** — funds are transferred into the smart contract and held until the auction is finalized
 - **Auction results on-chain** — winner declared by a Soroban smart contract, verifiable by anyone
+- **In-app refunds** — losing bidders can reclaim their deposit directly from the dashboard after finalization
 - **Transparent bid history** — every transaction is permanently recorded on Stellar
 
 ---
@@ -43,7 +44,12 @@ BidChain PH moves the auction process on-chain using the Stellar blockchain.
 ![Results](./frontend/public/result.png)
 
 ### My Bids Dashboard
-![My Bids](./frontend/public/bid.png)
+![My Bids](./frontend/public/bid-page.png)
+
+### Refund Sample
+![Refund bid](./frontend/public/refund.png)
+![Refund bid](./frontend/public/refund-wallet.png)
+![Refund bid](./frontend/public/refund-stellar.png)
 
 # 🧭 How to Use the App
 
@@ -65,14 +71,16 @@ Freighter Wallet Extension
         ↓
 Stellar Testnet (Horizon API + Soroban RPC)
         ↓
-┌─────────────────────────┬──────────────────────────┐
-│  Claimable Balances     │  Soroban Smart Contract  │
-│  (bid deposit escrow)   │  (auction state, results)│
-└─────────────────────────┴──────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│              Soroban Smart Contract                  │
+│  place_bid → deposit held in contract escrow         │
+│  finalize_auction → declares winner                  │
+│  refund_deposit → returns deposit to losing bidder   │
+└──────────────────────────────────────────────────────┘
 ```
 
-- **Bid deposits** are locked as Stellar claimable balances — visible and verifiable on Stellar Expert
-- **Auction logic** (create, finalize, cancel) runs in a deployed Soroban smart contract
+- **Bid deposits** are transferred into the Soroban contract via `place_bid` — locked in on-chain escrow
+- **Auction logic** (create, finalize, cancel, refund) runs entirely in the deployed Soroban smart contract
 - **Auction results** are read directly from the contract via Soroban RPC
 - **Wallet** signs every transaction locally; the frontend only handles UI and state
 
@@ -96,14 +104,13 @@ Stellar Testnet (Horizon API + Soroban RPC)
 | Browse active & closed property listings | ✅ Working |
 | Search and filter properties | ✅ Working |
 | Connect Freighter wallet | ✅ Working |
-| Place a bid (locks deposit as Stellar claimable balance) | ✅ Working |
+| Place a bid (locks deposit in Soroban contract escrow) | ✅ Working |
 | Transaction receipt with on-chain verification link | ✅ Working |
 | View auction result pulled from Soroban contract | ✅ Working |
 | My Bids dashboard (transaction history from Stellar) | ✅ Working |
 | Admin panel — finalize auction & declare winner | ✅ Working |
-| In-app deposit refund for losing bidders | 🔜 Future work |
+| In-app deposit refund for losing bidders | ✅ Working|
 
-> **Note on refunds:** Deposits placed through the UI are locked as Stellar claimable balances. After 24 hours, losing bidders can reclaim their deposit directly on Stellar. Full in-app refund flow is planned as a next step (requires routing bids through the Soroban `place_bid` function).
 
 # 📁 Repo Structure
 
@@ -132,7 +139,6 @@ bidchain-stellar/
 
 # 🔮 Future Improvements
 
-- Route bids through Soroban `place_bid` for full on-chain escrow and in-app refunds
 - Real PAG-IBIG property data integration
 - AI-assisted listing extraction from uploaded documents
 - Mobile wallet signing support
