@@ -98,8 +98,8 @@ export default function Home() {
             <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center mb-4">
               <IconCheck className="text-emerald-600 w-5 h-5" />
             </div>
-            <h3 className="font-bold text-xs uppercase tracking-widest mb-2 text-slate-400">Instant Release</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Funds are auto-returned to losing bidders the moment a winner is officially declared on-chain.</p>
+            <h3 className="font-bold text-xs uppercase tracking-widest mb-2 text-slate-400">Claimable Refund</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">After finalization, losing bidders can reclaim their deposit anytime from the My Bids dashboard.</p>
           </div>
         </div>
       </div>

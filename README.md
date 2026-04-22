@@ -24,8 +24,6 @@ BidChain PH moves the auction process on-chain using the Stellar blockchain.
 - **In-app refunds** — losing bidders can reclaim their deposit directly from the dashboard after finalization
 - **Transparent bid history** — every transaction is permanently recorded on Stellar
 
----
-
 # 🖥️ UI Screenshots
 
 ### Homepage
