@@ -2,8 +2,8 @@
 
 > **Ending the Liquidity Trap:** Trustless on-chain bidding for foreclosed properties in the Philippines. Bid deposits locked on Stellar, winners declared by smart contract, results verifiable by anyone.
 
-🔗**Live Demo**: https://bidchain-stellar.vercel.app/ \
-🔗**Smart Contract**: https://stellar.expert/explorer/testnet/contract/CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
+### 🔗**Live Demo**: https://bidchain-stellar.vercel.app/
+### 🔗**Smart Contract**: https://stellar.expert/explorer/testnet/contract/CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
 
 # 🚨 The Problem
 A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at ₱800,000—an opportunity for affordable homeownership.
@@ -56,13 +56,26 @@ BidChain PH moves the auction process on-chain using the Stellar blockchain.
 
 # 🧭 How to Use the App
 
+### For Bidders
 1. Install the [Freighter browser extension](https://freighter.app) and switch it to **Testnet**
 2. Fund your testnet wallet via [Stellar Friendbot](https://friendbot.stellar.org)
 3. Browse active auctions on the homepage
-4. Open a property listing and enter your bid amount
-5. Click **Place Bid** — Freighter will prompt you to sign
+4. Open a property listing and enter your bid amount in XLM
+5. Click **Place Bid** — Freighter will prompt you to sign the transaction
 6. A transaction receipt appears with your bid details and an on-chain verification link
-7. Check closed auction results under the **Closed Auctions** section
+7. Go to **My Bids** to track your active bids and deposit status
+8. After the auction closes, check the result under **Closed Auctions**
+9. If you didn't win, go to **My Bids** and click **Claim Refund** to recover your deposit
+
+### For Admins
+1. Connect the registered admin wallet via Freighter (must match the address used during contract deployment)
+2. Navigate to `/admin` — the panel loads all on-chain auctions automatically
+3. Auctions with status **Open** or **Closed** appear under **Pending Finalization**
+4. Click **Finalize Auction** on the target auction
+5. Enter the winner's full Stellar address (`G...`) — must be a wallet that placed a bid on-chain
+6. Click **Confirm & Sign** — Freighter will prompt you to sign the finalization transaction
+7. The winner is declared on-chain and the result is immediately visible on the auction result page
+8. Losing bidders can then claim their deposit refund from their **My Bids** dashboard
 
 # 🏗️ Architecture
 
