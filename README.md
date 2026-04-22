@@ -1,6 +1,6 @@
 # BidChain PH — ROPA Auction Portal
 
-> **Ending the Liquidity Trap:** Trustless on-chain bidding for foreclosed properties in the Philippines. Bid deposits held in Soroban escrow, winners selected by code, and losers refunded in seconds—not weeks.
+> **Ending the Liquidity Trap:** Trustless on-chain bidding for foreclosed properties in the Philippines. Bid deposits locked on Stellar, winners declared by smart contract, results verifiable by anyone.
 
 🔗**Live Demo**: https://bidchain-stellar.vercel.app/ \
 🔗**Smart Contract**: https://stellar.expert/explorer/testnet/contract/CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
@@ -10,19 +10,20 @@ A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at
 
 But the current system is designed to fail him:
 
-- The Check Barrier: Registration requires a physical manager's check. This means bank fees, physical travel, and delays that most working Filipinos cannot manage.
-- The Liquidity Trap: If the bidder loses, their deposit is held for 2 to 4 weeks before being refunded. This prevents them from using the funds for other urgent needs or new opportunities.
-- The Trust Gap: Auctions are conducted manually, with limited public visibility. There is no real-time, verifiable record of bids or outcomes.
-
-As a result, many potential buyers opt out of the process, and properties remain unclaimed or underutilized.
+- **The Check Barrier:** Registration requires a physical manager's check. Bank fees, physical travel, and delays that most working Filipinos cannot manage.
+- **The Liquidity Trap:** If the bidder loses, their deposit is held for 2 to 4 weeks before being refunded. Money they can't use for rent, other bids, or emergencies.
+- **The Trust Gap:** Auctions happen behind closed doors with no public record and no way to verify the winner was chosen fairly.
 
 # 💡 The Solution
-BidChain PH moves auctions on-chain using Stellar smart contracts.
 
-- Wallet-based bidding (Freighter)
-- Instant deposit locking via smart contract
-- Automatic refunds for losers
-- Transparent, verifiable auction results
+BidChain PH moves the auction process on-chain using the Stellar blockchain.
+
+- **Wallet-based bidding** via Freighter — no manager's check, no bank visit
+- **Deposit locked on Stellar** — funds are held in a verifiable claimable balance on the Stellar ledger
+- **Auction results on-chain** — winner declared by a Soroban smart contract, verifiable by anyone
+- **Transparent bid history** — every transaction is permanently recorded on Stellar
+
+---
 
 # 🖥️ UI Screenshots
 
@@ -46,35 +47,65 @@ BidChain PH moves auctions on-chain using Stellar smart contracts.
 
 # 🧭 How to Use the App
 
-1. Install Freighter and switch to Testnet  
-2. Browse active auctions  
-3. Open a property listing  
-4. Place a bid (sign via Freighter)  
-5. View transaction receipt  
-6. Check results in closed auctions  
-7. Claim refund if eligible  
+1. Install the [Freighter browser extension](https://freighter.app) and switch it to **Testnet**
+2. Fund your testnet wallet via [Stellar Friendbot](https://friendbot.stellar.org)
+3. Browse active auctions on the homepage
+4. Open a property listing and enter your bid amount
+5. Click **Place Bid** — Freighter will prompt you to sign
+6. A transaction receipt appears with your bid details and an on-chain verification link
+7. Check closed auction results under the **Closed Auctions** section
 
 # 🏗️ Architecture
 
-Frontend (Next.js)
-↓
-Freighter Wallet
-↓
-Soroban Smart Contract (Stellar Testnet)
+```
+Browser (Next.js + Tailwind)
+        ↓
+Freighter Wallet Extension
+(signs transactions locally — keys never leave the browser)
+        ↓
+Stellar Testnet (Horizon API + Soroban RPC)
+        ↓
+┌─────────────────────────┬──────────────────────────┐
+│  Claimable Balances     │  Soroban Smart Contract  │
+│  (bid deposit escrow)   │  (auction state, results)│
+└─────────────────────────┴──────────────────────────┘
+```
 
-- Smart contract handles bidding logic
-- Wallet signs transactions locally
-- Frontend only handles UI + state
+- **Bid deposits** are locked as Stellar claimable balances — visible and verifiable on Stellar Expert
+- **Auction logic** (create, finalize, cancel) runs in a deployed Soroban smart contract
+- **Auction results** are read directly from the contract via Soroban RPC
+- **Wallet** signs every transaction locally; the frontend only handles UI and state
 
-# 📦 Contract Functions
+# 📦 Smart Contract Functions
 
-- create_auction
-- place_bid
-- finalize_auction
-- refund_deposit
-- get_auction
+| Function | Caller | What It Does |
+|---|---|---|
+| `create_auction` | Admin | Lists a foreclosed property for auction |
+| `place_bid` | Bidder | Records a bid on-chain (contract layer) |
+| `finalize_auction` | Admin | Declares winner, issues purchase token |
+| `refund_deposit` | Losing bidder | Releases deposit after finalization |
+| `cancel_auction` | Admin | Cancels auction, enables all refunds |
+| `get_auction` | Anyone | Read-only auction state |
+| `get_bid` | Anyone | Read-only bid details |
 
-## 📁 Repo Structure
+
+# ✅ What's Working in This Demo
+
+| Feature | Status |
+|---|---|
+| Browse active & closed property listings | ✅ Working |
+| Search and filter properties | ✅ Working |
+| Connect Freighter wallet | ✅ Working |
+| Place a bid (locks deposit as Stellar claimable balance) | ✅ Working |
+| Transaction receipt with on-chain verification link | ✅ Working |
+| View auction result pulled from Soroban contract | ✅ Working |
+| My Bids dashboard (transaction history from Stellar) | ✅ Working |
+| Admin panel — finalize auction & declare winner | ✅ Working |
+| In-app deposit refund for losing bidders | 🔜 Future work |
+
+> **Note on refunds:** Deposits placed through the UI are locked as Stellar claimable balances. After 24 hours, losing bidders can reclaim their deposit directly on Stellar. Full in-app refund flow is planned as a next step (requires routing bids through the Soroban `place_bid` function).
+
+# 📁 Repo Structure
 
 ```
 bidchain-stellar/
@@ -87,7 +118,7 @@ bidchain-stellar/
 │   │   ├── page.tsx        ← Homepage — property listings
 │   │   ├── property/[id]/  ← Property detail + bid form
 │   │   ├── auction/[id]/   ← Auction result page
-│   │   ├── dashboard/      ← My Bids + refund flow
+│   │   ├── dashboard/      ← My Bids + deposit history
 │   │   └── admin/          ← Admin panel — finalize auctions
 │   ├── components/
 │   │   └── Navbar.tsx
@@ -101,8 +132,9 @@ bidchain-stellar/
 
 # 🔮 Future Improvements
 
-- Real PAG-IBIG property integration
-- AI-assisted listing extraction
-- Mobile signing improvements
-- USDC support
-- Notification system
+- Route bids through Soroban `place_bid` for full on-chain escrow and in-app refunds
+- Real PAG-IBIG property data integration
+- AI-assisted listing extraction from uploaded documents
+- Mobile wallet signing support
+- USDC deposit support alongside XLM
+- Notification system for outbid and auction close events
