@@ -37,7 +37,7 @@ export default function Navbar() {
           </div>
           <div className="leading-none">
             <div className="font-display font-bold text-[#0A3D62] text-lg tracking-wide">
-              BIDWELL PH
+              BIDCHAIN PH
             </div>
             <div className="text-[10px] font-semibold text-[#C4A484] uppercase tracking-[0.15em]">
               ROPA Portal

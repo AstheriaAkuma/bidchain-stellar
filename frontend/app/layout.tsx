@@ -16,7 +16,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "BidWell PH — ROPA Auction Portal",
+  title: "BidChain PH — ROPA Auction Portal",
   description:
     "Bid on bank foreclosed properties in the Philippines with on-chain escrow via Stellar blockchain.",
 };
@@ -52,7 +52,7 @@ export default function RootLayout({
                   </svg>
                 </div>
                 <div>
-                  <div className="font-display text-[#0A3D62] font-bold leading-none text-base">BIDWELL PH</div>
+                  <div className="font-display text-[#0A3D62] font-bold leading-none text-base">BIDCHAIN PH</div>
                   <div className="text-[10px] text-[#C4A484] uppercase tracking-widest">ROPA Portal</div>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function RootLayout({
             </div>
           </div>
           <div className="border-t border-slate-100 py-4 text-center text-xs text-slate-400">
-            © 2025 BidWell PH · Built on Stellar Testnet · All auctions are for demonstration purposes only.
+            © 2025 BidChain PH · Built on Stellar Testnet · All auctions are for demonstration purposes only.
           </div>
         </footer>
       </body>

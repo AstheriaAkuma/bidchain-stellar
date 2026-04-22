@@ -196,7 +196,7 @@ export default function Dashboard() {
 
       {/* Contract reference */}
       <div className="bg-[#0A3D62]/5 border border-[#0A3D62]/15 rounded-xl p-4 mb-8 text-sm">
-        <p className="font-semibold text-[#0A3D62] mb-1">📡 BidWell PH Contract</p>
+        <p className="font-semibold text-[#0A3D62] mb-1">📡 BidChain PH Contract</p>
         <p className="font-mono text-xs text-[#0A3D62]/70 break-all">{CONTRACT_ID}</p>
         <a
           href={`https://stellar.expert/explorer/testnet/contract/${CONTRACT_ID}`}

@@ -86,7 +86,7 @@ export default function PropertyPage() {
             {/* Card header */}
             <div className="bg-[#0A3D62] px-8 py-5 flex items-center justify-between">
               <div>
-                <p className="text-[10px] font-black uppercase text-white/40 tracking-[0.3em] mb-0.5">BidWell PH</p>
+                <p className="text-[10px] font-black uppercase text-white/40 tracking-[0.3em] mb-0.5">BidChain PH</p>
                 <p className="text-white font-display text-lg font-bold">Transaction Receipt</p>
               </div>
               <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">

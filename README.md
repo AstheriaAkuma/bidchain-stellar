@@ -1,8 +1,8 @@
-# BidWell PH — ROPA Auction Portal
+# BidChain PH — ROPA Auction Portal
 
 > **Ending the Liquidity Trap:** Trustless on-chain bidding for foreclosed properties in the Philippines. Bid deposits held in Soroban escrow, winners selected by code, and losers refunded in seconds—not weeks.
 
-🔗**Live Demo**: [link] \
+🔗**Live Demo**: https://bidchain-stellar.vercel.app/ \
 🔗**Smart Contract**: https://stellar.expert/explorer/testnet/contract/CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
 
 # 🚨 The Problem
@@ -17,7 +17,7 @@ But the current system is designed to fail him:
 As a result, many potential buyers opt out of the process, and properties remain unclaimed or underutilized.
 
 # 💡 The Solution
-BidWell PH moves auctions on-chain using Stellar smart contracts.
+BidChain PH moves auctions on-chain using Stellar smart contracts.
 
 - Wallet-based bidding (Freighter)
 - Instant deposit locking via smart contract
