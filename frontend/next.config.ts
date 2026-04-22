@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["@stellar/stellar-sdk", "@stellar/freighter-api"],
 };
 
 export default nextConfig;
