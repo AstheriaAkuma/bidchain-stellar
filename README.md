@@ -2,13 +2,8 @@
 
 > **Ending the Liquidity Trap:** Trustless on-chain bidding for foreclosed properties in the Philippines. Bid deposits held in Soroban escrow, winners selected by code, and losers refunded in seconds—not weeks.
 
-## 🔗 Live Demo
-[link]
-
-## 🔗 Smart Contract
-https://stellar.expert/explorer/testnet/contract/CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
-
----
+🔗**Live Demo**: [link] \
+🔗**Smart Contract**: https://stellar.expert/explorer/testnet/contract/CAPFAF6VMQK6X4HAVHLYRIOZMJLM56A3247N4K6EIKWYIDQMF4Y6SC3U
 
 # 🚨 The Problem
 A minimum-wage earner in Quezon City finds a PAG-IBIG foreclosed condo listed at ₱800,000—an opportunity for affordable homeownership.
@@ -21,8 +16,6 @@ But the current system is designed to fail him:
 
 As a result, many potential buyers opt out of the process, and properties remain unclaimed or underutilized.
 
----
-
 # 💡 The Solution
 BidWell PH moves auctions on-chain using Stellar smart contracts.
 
@@ -31,29 +24,25 @@ BidWell PH moves auctions on-chain using Stellar smart contracts.
 - Automatic refunds for losers
 - Transparent, verifiable auction results
 
----
-
 # 🖥️ UI Screenshots
 
-## Homepage — Active Auctions
+### Homepage
 ![Homepage](./frontend/public/homepage.png)
 
-## Property Detail — Bid Panel
+### Property Detail: Bid Panel
 ![Property Detail](./frontend/public/propertydetail.png)
 
-## Freighter Signature
+### Freighter Signature
 ![Freighter Signature](./frontend/public/freighter.png)
 
-## Transaction Receipt
+### Transaction Receipt
 ![Receipt](./frontend/public/receipt.png)
 
-## Closed Auctions — Results
+### Closed Auctions Results
 ![Results](./frontend/public/result.png)
 
-## My Bids Dashboard
+### My Bids Dashboard
 ![My Bids](./frontend/public/bid.png)
-
----
 
 # 🧭 How to Use the App
 
@@ -64,8 +53,6 @@ BidWell PH moves auctions on-chain using Stellar smart contracts.
 5. View transaction receipt  
 6. Check results in closed auctions  
 7. Claim refund if eligible  
-
----
 
 # 🏗️ Architecture
 
@@ -79,8 +66,6 @@ Soroban Smart Contract (Stellar Testnet)
 - Wallet signs transactions locally
 - Frontend only handles UI + state
 
----
-
 # 📦 Contract Functions
 
 - create_auction
@@ -89,9 +74,7 @@ Soroban Smart Contract (Stellar Testnet)
 - refund_deposit
 - get_auction
 
----
-
-## Repo Structure
+## 📁 Repo Structure
 
 ```
 bidchain-stellar/
@@ -115,8 +98,6 @@ bidchain-stellar/
 │       └── mockData.ts     ← Property listings data
 └── README.md
 ```
-
----
 
 # 🔮 Future Improvements
 
