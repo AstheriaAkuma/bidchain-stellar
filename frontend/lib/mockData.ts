@@ -25,7 +25,7 @@ export const properties: Property[] = [
     deadline: "2025-07-15T09:00:00",
     bank: "PNB ROPA",
     image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600",
-    status: "open",
+    status: "closed",
   },
   {
     id: 4,

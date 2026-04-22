@@ -33,16 +33,20 @@ BidChain PH moves the auction process on-chain using the Stellar blockchain.
 ![Property Detail](./frontend/public/propertydetail.png)
 
 ### Freighter Signature
-![Freighter Signature](./frontend/public/freighter.png)
+![Freighter Signature](./frontend/public/signature.png)
 
 ### Transaction Receipt
-![Receipt](./frontend/public/receipt.png)
+![Receipt](./frontend/public/receipt-page.png)
+![Receipt in Stellar](receipt-stellar.png)
 
 ### Closed Auctions Results
 ![Results](./frontend/public/result.png)
 
 ### My Bids Dashboard
 ![My Bids](./frontend/public/bid-page.png)
+
+### Admin Page
+![Admin Page](./frontend/public/admin-page.png)
 
 ### Refund Sample
 ![Refund bid](./frontend/public/refund.png)
