@@ -37,7 +37,8 @@ BidChain PH moves the auction process on-chain using the Stellar blockchain.
 
 ### Transaction Receipt
 ![Receipt](./frontend/public/receipt-page.png)
-![Receipt in Stellar](receipt-stellar.png)
+![Receipt in Stellar](./frontend/public/stellarexpert.png)
+![Bid Submitted](./frontend/public/bid-submitted.png)
 
 ### Closed Auctions Results
 ![Results](./frontend/public/result.png)
