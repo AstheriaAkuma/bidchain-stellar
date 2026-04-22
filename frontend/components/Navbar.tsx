@@ -5,16 +5,29 @@ import { getWalletBalance } from "@/lib/stellar";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const { publicKey, shortKey, connect, isLoading } = useFreighter();
+  const { publicKey, shortKey, connect, isLoading, error } = useFreighter();
   const [balance, setBalance] = useState<string | null>(null);
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (!publicKey) return;
     getWalletBalance(publicKey).then(setBalance);
   }, [publicKey]);
 
+  useEffect(() => {
+    if (!error) return;
+    setShowError(true);
+    const t = setTimeout(() => setShowError(false), 6000);
+    return () => clearTimeout(t);
+  }, [error]);
+
   return (
     <nav className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
+      {showError && error && (
+        <div className="bg-red-50 border-b border-red-200 px-6 py-2 text-xs text-red-600 text-center font-medium">
+          {error}
+        </div>
+      )}
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
 
         {/* Brand */}

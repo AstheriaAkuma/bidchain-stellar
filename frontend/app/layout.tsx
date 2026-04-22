@@ -30,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.variable} ${cormorant.variable} font-[var(--font-inter)] bg-[#F8FAFC] text-slate-800 min-h-screen`}
+        suppressHydrationWarning
       >
         <Navbar />
         <main>{children}</main>
