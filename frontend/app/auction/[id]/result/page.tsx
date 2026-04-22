@@ -137,8 +137,8 @@ export default function AuctionResultPage() {
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
                 </div>
-                <h3 className="font-bold text-xs uppercase tracking-widest mb-2 text-slate-400">Instant Release</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">Funds are auto-returned to losing bidders the moment a winner is officially declared on-chain.</p>
+                <h3 className="font-bold text-xs uppercase tracking-widest mb-2 text-slate-400">Claimable Refund</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">After finalization, losing bidders can reclaim their deposit anytime from the My Bids dashboard.</p>
               </div>
             </div>
 
@@ -264,7 +264,10 @@ export default function AuctionResultPage() {
                     </div>
                     {!isUserWinner && !userBid.refunded && (
                       <p className="text-xs text-slate-400 pt-1">
-                        Go to My Bids to claim your deposit refund.
+                        <Link href="/dashboard" className="text-[#0A3D62] font-medium hover:opacity-70 transition">
+                          Go to My Bids
+                        </Link>{" "}
+                        to claim your deposit refund.
                       </p>
                     )}
                   </div>
