@@ -43,7 +43,12 @@ BidChain PH moves the auction process on-chain using the Stellar blockchain.
 ![Results](./frontend/public/result.png)
 
 ### My Bids Dashboard
-![My Bids](./frontend/public/bid.png)
+![My Bids](./frontend/public/bid-page.png)
+
+### Refund Sample
+![Refund bid](./frontend/public/refund.png)
+![Refund bid](./frontend/public/refund-wallet.png)
+![Refund bid](./frontend/public/refund-stellar.png)
 
 # 🧭 How to Use the App
 
